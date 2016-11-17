@@ -1,0 +1,62 @@
+#include makeinclude
+
+PLAT_FORM = ARM
+
+####### Compiler, tools and options
+ifeq ($(PLAT_FORM),ARM)
+############### ARM #############################
+CXX                 =arm-linux-androideabi-g++
+CC                  =arm-linux-androideabi-gcc
+AR                  =arm-linux-androideabi-ar
+RANLIB              =arm-linux-androideabi-ranlib
+TARGET              =armeabi
+CXXFLAGS            =-Wall  -fsigned-char -O2 -c
+################################################
+else
+############### X86  #############################
+CXX                 =g++
+CC                  =gcc
+AR                  =ar
+RANLIB              =ranlib
+TARGET              =x86
+CXXFLAGS            =-Wall  -fsigned-char -O2 -c
+################################################
+endif
+
+
+UICOMPILE = -I./inc -I./uvc
+UILINK = -lc -llog -L../lib_arm_limit -lmosaic_arm
+
+LIBRARY := libRPenSDK.a
+LIBNAME := libRPenSDK.so
+DSONAME := $(LIBNAME)
+
+
+SRCS := $(wildcard *.cpp)
+OBJS := $(patsubst %.cpp, %.o, $(SRCS))
+DEPS := $(patsubst %.cpp, %.d, $(SRCS))
+
+
+all:$(LIBRARY) $(DSONAME) FORCE
+
+$(LIBRARY):$(OBJS)
+	@echo Linking and building $@ ...                                                           
+	@$(AR) cqs $@ $(OBJS)
+	@$(RANLIB) $@
+$(DSONAME):$(OBJS)
+	@echo Linking and building $@ ...
+	@$(CXX) -shared -WI,-soname,$(LIBNAME) -o $@ $(OBJS) $(UILINK)
+                                                                                                    
+%.o:%.cpp
+	@echo Compiling $@ ...
+	@$(CXX) $(CXXFLAGS) -D_NORMAL_DECRYPT  -fPIC $(UICOMPILE) $< -o $@
+                                                                                                    
+%.d:%.cpp
+	@echo Making dependency of $@ ...
+	@$(CXX) -MM $(UICOMPILE) $< > $@
+	@$(CXX) -MM $(UICOMPILE) $< | sed s/\\.o/.d/ >> $@
+clean:
+	-rm $(LIBRARY) $(DSONAME) $(OBJS)
+
+FORCE:
+

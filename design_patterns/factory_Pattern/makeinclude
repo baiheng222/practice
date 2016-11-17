@@ -1,0 +1,7 @@
+CXX					=arm-linux-androideabi-g++
+CC					=arm-linux-androideabi-gcc
+AR					=arm-linux-androideabi-ar
+RANLIB				=arm-linux-androideabi-ranlib
+TARGET				=armeabi
+CXXFLAGS			=-Wall  -fsigned-char -O2 -c 
+
