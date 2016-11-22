@@ -1,3 +1,7 @@
+/*
+ *	顺序表的实现
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
@@ -205,6 +209,8 @@ Status ListInsert(Sqlist *L, int i, ElemType e)
 		return ERROR;
 	}
 
+	printf("\te is %d\n", e);
+
 	if (i < 1 || i > L->length+1)
 	{
         printf("\ti > length+1 \n");
@@ -279,7 +285,7 @@ Status ListTraverse(Sqlist *L)
         return ERROR;
     }
     int i = 1;
-    for (i = 1; i <= L->length; i++)
+    for (i = 0; i < L->length; i++)
     {
         printf("\tlist[%d] is %d \n", i, L->elem[i]);
     }
