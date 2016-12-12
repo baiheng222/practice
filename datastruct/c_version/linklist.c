@@ -15,11 +15,21 @@
 typedef int Status;
 
 typedef int ElemType;
-struct Node
+typedef struct LNode
 {
-	ElemType elem;
-	Node *next;
-}
+    ElemType data;
+    LNode *next;
+}LNode, *LinkList;
+
+
+typedef struct
+{
+    Link head, tail;
+    int length;
+}LinkList;
+
+
+void CreateList(LinkList *L)
 
 int main(int argc, char **argv)
 {

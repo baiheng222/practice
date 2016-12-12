@@ -319,11 +319,58 @@ void ListSort(Sqlist *L)
     }
 }
 
+Status MergeList(Sqlist *La, Sqlist *Lb, Sqlist *Lc)
+{
+    if (NULL == La || NULL == Lb || NULL == Lc)
+    {
+        return ERROR;
+    }
+
+    int lena = La->length;
+    int lenb = Lb->length;
+    int lenc = lena + lenb;
+    Lc->elem = (ElemType *) malloc(lenc * sizeof(ElemType));
+    if (NULL == Lc->elem)
+    {
+        return ERROR;
+    }
+
+    Lc->length = lenc;
+    Lc->listsize = lenc;
+
+    int i = 0, j = 0, k = 0;
+    while (i < La->length && j < Lb->length)
+    {
+        if (La->elem[i] < Lb->elem[j])
+        {
+            Lc->elem[k++] = La->elem[i++];
+        }
+        else
+        {
+            Lc->elem[k++] = Lb->elem[j++];
+        }
+    }
+
+    while (i < La->length)
+    {
+        Lc->elem[k++] = La->elem[i++];
+    }
+
+    while (j < Lb->length)
+    {
+        Lc->elem[k++] = Lb->elem[j++];
+    }
+
+    return OK;
+}
+
 int main(int argc, char **argv)
 {
     int i;
     ElemType e;
     Sqlist L;
+    Sqlist Lb;
+    Sqlist Lc;
 
     srand((int) time(0));
 
@@ -411,7 +458,38 @@ int main(int argc, char **argv)
     ListTraverse(&L);
 
 
+    Status retb = InitList_Sq(&Lb);
+    if (retb == ERROR)
+    {
+        printf("\tInitList error\n");
+        return -1;
+    }
+    else
+    {
+        printf("\tInitlist success\n");
+    }
+
+    /*向线性表中插入元素*/
+    printf("\n\t插入Lb元素\n");
+    for(i = 1; i <= 6; i++)
+    {
+        ListInsert(&Lb, i, rand()%100);
+    }
+
+    ListTraverse(&Lb);
+    printf("\n\t该线性表的长度：%d\n\n", ListLength(&Lb));
+
+
+    printf("\n\t合并线性表\n");
+    MergeList(&L, &Lb, &Lc);
+    ListTraverse(&Lc);
+    printf("\n\t该线性表的长度：%d\n\n", ListLength(&Lc));
+
+
+
     DestoryList(&L);
+    DestoryList(&Lb);
+    DestoryList(&Lc);
 	
 	return ret;
 }
