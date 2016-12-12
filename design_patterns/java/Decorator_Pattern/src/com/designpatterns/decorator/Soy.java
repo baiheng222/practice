@@ -15,6 +15,6 @@ public class Soy extends CondimentDecorator
 
     public double cost()
     {
-        return .13 + mBeverage.cost();
+        return 0.13 + mBeverage.cost();
     }
 }

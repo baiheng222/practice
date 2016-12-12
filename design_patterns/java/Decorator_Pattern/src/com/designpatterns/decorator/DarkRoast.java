@@ -4,11 +4,11 @@ public class DarkRoast extends Beverage
 {
     public DarkRoast()
     {
-        description = "DarkRost";
+        description = "DarkRoast";
     }
 
     public double cost()
     {
-        return 1.00;
+        return 1.06;
     }
 }
