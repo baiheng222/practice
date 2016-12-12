@@ -34,3 +34,9 @@
 
 #Dependence files when comply
 *.d
+
+*.iml
+
+*~
+.idea/
+out/
