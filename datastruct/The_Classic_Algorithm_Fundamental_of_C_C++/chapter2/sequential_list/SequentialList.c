@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "mylogger.h"
+#include "../lib/mylogger.h"
 
 #define MAXLEN 100
 #define OK                   0
