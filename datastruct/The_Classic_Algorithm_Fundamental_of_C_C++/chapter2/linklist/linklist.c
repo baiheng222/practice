@@ -133,6 +133,7 @@ LLType *InsertNode(LLType *head, char *name, DATA data)
 	{
         if (strcmp(htemp->ListData.name, name) == 0)
 		{
+			LogD("found, name is %s", name);
 			ntemp = htemp;
 			break;
 		}
@@ -202,7 +203,7 @@ int ListLength(LLType* head)
         return 0;
     }
 
-    int len = 0;
+    int len = 1;
     LLType * htemp = head;
     while (htemp->ListNext != NULL)
     {
@@ -228,6 +229,10 @@ void PrintAllNodes(LLType * head)
     {
         LogI("name: %s,  age: %d", htemp->ListData.name, htemp->ListData.age);
         htemp = htemp->ListNext;
+		if (htemp->ListNext == NULL)
+		{
+			LogI("name: %s,  age: %d", htemp->ListData.name, htemp->ListData.age);
+		}
     }
 
     return;
@@ -236,10 +241,11 @@ void PrintAllNodes(LLType * head)
 int main(int argc, char **argv)
 {
     init_mylogger();
-    LLType *head = NULL, *node;
+    LLType *head = NULL, *node = NULL;
     DATA data;
     char name[10];
     int age;
+	char tmp[10];
 
     printf("输入数据（名字， 年龄）\n");
     do
@@ -258,6 +264,33 @@ int main(int argc, char **argv)
     while (1);
 
     PrintAllNodes(head);
+	
+	LogI("\n演示结点插入, 输入插入的位置的关键字：");
+	scanf("%s", tmp);
+	LogI("\n输入要插入的结点数据，（名字，年龄）");
+	scanf("%s%d", name, &age);
+	strcpy(data.name, name);
+	data.age = age;
+	head = InsertNode(head, name, data);
+	
+	PrintAllNodes(head);
+	
+	LogI("\n演示删除结点，输入结点位置关键字：");
+	scanf("%s", name);
+	head = DeleteNode(head, name);
+	PrintAllNodes(head);
+	
+	LogI("\n演示在链表中查找，输入查找的关键子：");
+	scanf("%s", name);
+	node = FindNode(head, name);
+	if (NULL == node)
+	{
+		LogW("未找到关键字");
+	}
+	else
+	{
+		LogI("查找到的结点为：%s %d", node->ListData.name, node->ListData.age);
+	}
 
     return 0;
 }
