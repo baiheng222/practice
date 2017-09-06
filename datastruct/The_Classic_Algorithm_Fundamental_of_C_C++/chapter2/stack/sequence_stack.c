@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define NAME_LEN 10
 #define STACK_MAX_LEN 50
@@ -112,11 +113,32 @@ int PushStack(StackType *stack, Data data)
 	
 }
 
+void PrintStack(StackType *stack)
+{
+    if (NULL == stack)
+    {
+        return;
+    }
+    int i;
+    for (i = stack->top; i > 0; i--)
+    {
+        printf("stack[%d] is %s  %d\n", i, stack->data[i].name, stack->data[i].age);
+    }
+}
+
 Data PopStack(StackType *stack)
 {
-	stack->top = stack->top -1;
+    Data tmpdat;
+    strcpy(tmpdat.name, "end");
+    tmpdat.age = -1;
+    if (stack->top == 0)
+    {
+        printf("stack is empty\n");
+        return tmpdat;
+    }
+	//stack->top = stack->top -1;
 	
-	return stack->data[stack->top];
+	return stack->data[stack->top--];
 }
 
 
@@ -135,7 +157,7 @@ int main(int argc, char **argv)
 	}
 	
 	printf("入栈操作: \n");
-	printf("输入姓名　年龄：\n");
+	printf("\n输入姓名　年龄：");
 	do
 	{
 		scanf("%s%d", data.name, &data.age);
@@ -150,10 +172,12 @@ int main(int argc, char **argv)
 	}
 	while(1);
 	
+    printf("stack->top is %d\n", stack->top);
+    PrintStack(stack);
 	printf("出栈操作 \n");
 	do
 	{
-		printf("按任意键进行出栈操作\n");
+		printf("\n按任意键进行出栈操作");
 		getchar();
 		data1 = PopStack(stack);
 		printf("出栈数据是：　%s    %d\n", data1.name, data1.age);
