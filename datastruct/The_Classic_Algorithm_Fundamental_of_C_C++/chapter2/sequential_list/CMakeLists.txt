@@ -1,0 +1,8 @@
+cmake_minimum_required (VERSION 2.6)
+project (SequentialList)
+set (SRC_LIST SequentialList.c)
+include_directories (../lib/)
+#add_definitions (-g)
+link_directories (/home/baiheng222/study/practice/datastruct/The_Classic_Algorithm_Fundamental_of_C_C++/chapter2/lib)
+add_executable(slist ${SRC_LIST})
+target_link_libraries(slist -lmylogger)
