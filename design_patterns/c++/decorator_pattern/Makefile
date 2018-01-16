@@ -12,7 +12,7 @@ CXXFLAGS            =-Wall  -fsigned-char -O2 -c
 #UICOMPILE = -I$(PREFIX)/include
 #UILINK =-L$(FL_LIB_DIR) 
 
-EXENAME := builder_pattern
+EXENAME := decorator_pattern
 SRCS := $(wildcard *.cpp)
 OBJS := $(patsubst %.cpp, %.o, $(SRCS))
 DEPS := $(patsubst %.cpp, %.d, $(SRCS))

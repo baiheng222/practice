@@ -1,0 +1,10 @@
+cmake_minimum_required(VERSION 2.6)
+project (DESIGNPATTERN)
+add_subdirectory (builer_Pattern)
+add_subdirectory (command_pattern)
+add_subdirectory (decorator_pattern)
+add_subdirectory (factory_Pattern)
+add_subdirectory (observer_pattern)
+add_subdirectory (prototype_pattern)
+add_subdirectory (singleton_pattern)
+
