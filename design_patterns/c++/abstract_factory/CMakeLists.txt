@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.6)
-project (FACTORYPATTERN)
+project (ABSFACTORYPATTERN)
 #set (SRC_LIST )
 
 #允许gdb调试
@@ -29,7 +29,7 @@ AUX_SOURCE_DIRECTORY(. DIR_SRCS)
 #   )
 #target_link_libraries(test libface_identify.so)
 #生成可执行文件
-add_executable(factorypattern ${DIR_SRCS}) 
+add_executable(absfactorypattern ${DIR_SRCS}) 
 
 
 #添加C++11编译选项,但是只有CMAKE 3.1支持
